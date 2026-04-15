@@ -51,7 +51,7 @@ paths:
 
     '/ingredients/{id}/stock':
       get:
-        summary: something like that
+        summary: Get ingredient stock at a given time and unit
         parameters:
           - in: path
             name: id
@@ -174,10 +174,14 @@ components:
         price:
           type: number
           example: 1200.00
+        ingredients:
+          type: array
+          items:
+            $ref: "#/components/schemas/Ingredient"
     StockValue:
       type: object
       properties:
-        quantity:
+        value:
           type: number
           example: 200.00
         unit:
