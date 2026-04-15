@@ -10,8 +10,8 @@ import java.sql.SQLException;
 @Configuration
 public class DataSource {
     private final String jdbcURl = System.getenv("JDBC_URl"); //
-    private final String user = System.getenv("USER"); //mini_dish_db_manager
-    private final String password = System.getenv("PASSWORD"); //123456
+    private final String user = System.getenv("USER");
+    private final String password = System.getenv("PASSWORD");
 
     @Bean
     public Connection getConnection() {

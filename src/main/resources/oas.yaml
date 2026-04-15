@@ -1,0 +1,145 @@
+openapi: 3.0.0
+info:
+  title: Dish-Ingredient Management API
+  version: 1.0.0
+  description: API for managing ingredients
+servers:
+  - url: http://localhost:8080
+paths:
+    '/ingredients':
+      get:
+        summary: Get all ingredients
+        responses:
+          '200':
+            description: A list of ingredients
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Ingredient'
+    '/ingredients/{id}':
+      get:
+        summary: Get an ingredient by ID
+        parameters:
+          - in: path
+            name: id
+            schema:
+              type: integer
+            required: true
+        responses:
+          '200':
+            description: An ingredient
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Ingredient'
+          '404':
+            description: Ingredient not found
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: Ingredient not found
+    '/ingredients/{id}/stock':
+      get:
+        summary: something like that
+        parameters:
+          - in: path
+            name: id
+            schema:
+              type: integer
+            required: true
+          - in: path
+            name: at
+            schema:
+              type: string
+            required: true
+          - in: path
+            name: unit
+            required: true
+            schema:
+              type: string
+        responses:
+          '200':
+            description: Ingredient found
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Ingredient'
+
+    '/dishes':
+      get:
+        summary: Get All Dishes
+        responses:
+          '200':
+            description: Dish found
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Dish"
+          '404':
+            description: Dish not found
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: Dish not found
+    '/dishes/{id}/ingredients':
+      put:
+        summary: Update a dish
+        parameters:
+          - in: path
+            name: id
+            required: true
+            schema:
+              type: integer
+          - in: query
+            name: ingredients
+            required: true
+            schema:
+              type: object
+        responses:
+
+
+components:    
+  schemas:
+    Ingredient:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: tomato
+        category:
+          type: string
+          enum: [vegetable, animal, marine, dairy, other]
+        price:
+          type: number
+          example: 200.00
+        id_dish:
+          type: integer
+          example: 1
+    Dish:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Salade fraîche
+        category:
+          type: string
+          enum: [START, MAIN, DESSERT]
+        price:
+          type: number
+          example: 1200.00
